@@ -30,6 +30,8 @@
 	<link href='//fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
 	<!--font-Awesome-->
 	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+
 	<!--font-Awesome-->
 	<script>
 		$(document).ready(function() {
@@ -239,6 +241,39 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		function checkPasswordStrength() {
+			var password = document.getElementById("edit-pass").value;
+			var passwordCriteria = document.getElementById("password-criteria");
 
+			passwordCriteria.style.display = password.length > 0 ? 'block' : 'none';
+			setTimeout(function() {
+				passwordCriteria.style.opacity = password.length > 0 ? '1' : '0';
+			}, 10);
+			updateCriteria("length-check", password.length >= 8);
+			updateCriteria("lower-check", /[a-z]/.test(password));
+			updateCriteria("upper-check", /[A-Z]/.test(password));
+			updateCriteria("number-check", /[0-9]/.test(password));
+			updateCriteria("special-check", /[\W_]/.test(password));
+		}
+
+		function updateCriteria(id, isMet) {
+			var element = document.getElementById(id);
+			element.className = isMet ? "met" : "";
+			element.children[0].className = isMet ? "bx bx-check" : "bx bx-x";
+		}
+
+		function togglePasswordVisibility(passwordInputId, toggleIconId) {
+			var passwordInput = document.getElementById(passwordInputId);
+			var toggleIcon = document.getElementById(toggleIconId);
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				toggleIcon.className = 'bx bx-hide';
+			} else {
+				passwordInput.type = "password";
+				toggleIcon.className = 'bx bx-show';
+			}
+		}
+	</script>
 
 	<?php include_once("footer.php"); ?>
